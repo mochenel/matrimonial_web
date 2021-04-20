@@ -1,7 +1,9 @@
 const express = require("express");
 const mysql   = require("mysql");
 const bodyParser  = require("body-parser");
-
+var cors = require('cors');
+const app  = express();
+app.use(cors());
 
 const verifyToken = require('./middleware/verifyToken');
 const addNewUser = require('./middleware/addNewUser');
@@ -13,7 +15,7 @@ const validateFields = require('./middleware/validateFields');
 const port = process.env.PORT || 9000;
 
 
-const app  = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(port, function() {
