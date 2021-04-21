@@ -2,7 +2,7 @@ const express = require("express");
 
 let validateFields = function (req,res,next) {
 	let errors = {
-		error:false,
+		success:true,
 		message:{
 			  first_name:null,
 		      last_name:null,
@@ -16,54 +16,55 @@ let validateFields = function (req,res,next) {
 		      college:null
 		}
 	}
+	console.log(req.body)
 
 	if(req.body.first_name.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.first_name = "first name is required";
 	}
 	if(req.body.last_name.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.last_name = "last name is required";
 	}
 	if(req.body.password.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.password = "password  is required";
 	}
 	if(req.body.date_of_birth.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.date_of_birth = "date_of_birth  is required";
 	}
 	if(req.body.address_city.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.address_city = "address_city  is required";
 	}
 	if(req.body.address_state.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.address_state = "address_state  is required";
 	}
 	if(req.body.address_code.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.address_code = "address_code  is required";
 	}
 	if(req.body.college.trim() === ''){
-		errors.error = true;
+		errors.success = false;
 		errors.message.college = "college  is required";
 	}
 	const mail = validateEmail(req.body.email);
 	if(mail){
-		errors.error = true;
+		errors.success = false;
 		errors.message.email = mail;
 	}
 
 
 	const phone = phonenumber(req.body.phone_number);
 	if(phone){
-		errors.error = true;
+		errors.success = false;
 		errors.message.phone_number = phone;
 	}
 	console.log(errors)
-	if(errors.error === true){
-		return res.status(400).json(errors);
+	if(errors.success === false){
+		return res.json(errors);
 	}
 	next();
 }

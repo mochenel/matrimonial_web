@@ -21,7 +21,12 @@ const userLoginCheck = function (req, res) {
 
 	connection.query(query,async function(err,rows){
 		if(err) {
-			res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+				res.json({
+					success: false,
+					message: 'Error executing MySQL query',
+					token: null,
+					currUser: null
+				});
 		}
 		else {
 
@@ -44,12 +49,23 @@ const userLoginCheck = function (req, res) {
 
 				}
 				else{
-					res.json({"Error" : true, "Message" : "Incorrect password"});
+					res.json({
+							success: false,
+							message: 'Incorrect password',
+							token: null,
+							currUser: null
+						});
 				}
 								
 			}
 			else {
-				res.json({"Error" : true, "Message" : "Email not found"});
+				res.json({
+						success: false,
+						message: 'Email not found',
+						token: null,
+						currUser: null
+					});
+
 			}
 
 		}

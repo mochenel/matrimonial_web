@@ -25,7 +25,7 @@ const saltRounds = 10;
   bcrypt.hash(post.password, saltRounds, function(err, hash) {
 
   	if(err){
-  		res.json({"Error" : true, "Message" : "Password hash code error"});
+  		res.json({"success" : false, "Message" : "Password hash code error"});
 
   	}
   	else{
@@ -39,7 +39,7 @@ const saltRounds = 10;
 
 		connection.query(query,function(err,rows){
 		if(err) {
-			res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+			res.json({"success" : false, "Message" : "Error executing MySQL query"});
 		}
 		else {
 
@@ -50,15 +50,15 @@ const saltRounds = 10;
 				query = mysql.format(query,table);
 				connection.query(query, post, function(err,rows){
 					if(err) {
-						res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+						res.json({"success" : false, "Message" : "Error executing MySQL query"});
 					} else {
-						res.json({"Error" : false, "Message" : "Success"});
+						res.json({"success" : true, "Message" : "Success"});
 					}
 				});
 
 			}
 			else{
-				res.json({"Error" : false, "Message" : "Email Id already registered"});
+				res.json({"success" : false, "Message" : "Email Id already registered"});
 			}
 		}
     });
