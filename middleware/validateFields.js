@@ -4,16 +4,7 @@ let validateFields = function (req,res,next) {
 	let errors = {
 		success:true,
 		message:{
-			  first_name:null,
-		      last_name:null,
-		      email:null,
-		      password:null,
-		      date_of_birth:null,
-		      phone_number:null,
-		      address_city:null,
-		      address_state:null,
-		      address_code:null,
-		      college:null
+
 		}
 	}
 	console.log(req.body)
@@ -30,6 +21,11 @@ let validateFields = function (req,res,next) {
 		errors.success = false;
 		errors.message.password = "password  is required";
 	}
+	else if(req.body.password.trim().length < 5){
+		errors.success = false;
+		errors.message.password = "password  must be minimun of 5 characters";
+	}
+
 	if(req.body.date_of_birth.trim() === ''){
 		errors.success = false;
 		errors.message.date_of_birth = "date_of_birth  is required";
